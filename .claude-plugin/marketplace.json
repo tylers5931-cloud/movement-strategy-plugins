@@ -1,1 +1,17 @@
-{"name":"movement-strategy-plugins","owner":{"name":"Tyler Stewart"},"metadata":{"description":"Movement Strategy team plugins"},"plugins":[{"name":"content-qc","source":"./plugins/content-qc","description":"QC creative deliverables (Drive, Frame.io, video, stills): Spanish/English copy, Amazon Music name styling, and visual/brand checks.","version":"0.2.0"}]}
+{
+  "name": "movement-strategy-plugins",
+  "owner": {
+    "name": "Tyler Stewart"
+  },
+  "metadata": {
+    "description": "Movement Strategy team plugins"
+  },
+  "plugins": [
+    {
+      "name": "content-qc",
+      "source": "./plugins/content-qc",
+      "description": "QC creative deliverables (Drive, Frame.io, video, stills): Spanish/English copy, Amazon Music name styling, and visual/brand checks.",
+      "version": "0.3.0"
+    }
+  ]
+}
