@@ -7,7 +7,7 @@
 - **Text legibility**: no text cut off, overlapping artwork or graphics, or running outside safe margins; long titles wrap cleanly (no single-word orphan lines unless intended)
 - **Layout consistency**: shared elements (arrows, labels, cards, play buttons) are in the same position, size, and color across frames
 - **Image quality**: no visible pixelation, compression artifacts, or stretched images
-- **Explicit content**: if an album cover shows a Parental Advisory label, note it in case the placement requires a clean version
+- **Explicit content**: if an album cover shows a Parental Advisory label and the placement calls for clean content, flag it
 
 ## Across the set
 
