@@ -31,7 +31,7 @@ Links look like `f.io/...`, `next.frame.io/...`, `app.frame.io/...`, or `*.frame
    - After each jump, wait about 1s, then `zoom` on the player area.
    - Step through every 1s (every 0.5s for fast-cut edits), plus the first frame and the last 0.1s (end card). When a super appears or changes between two checks, step back to capture it fully readable.
    - If `document.querySelector('video')` returns null, the player may be in an iframe. Fall back to pausing and clicking along the timeline scrubber, or the frame-step keys, taking a screenshot each time.
-5. **Existing comments**: if the review has comments, read them (`get_page_text`) and note any unresolved ones in the report. Don't post, resolve, or approve anything in Frame.io unless the user explicitly asks.
+5. **Existing comments**: if the review has comments, read them (`get_page_text`). If an unresolved comment points to a problem still visible in the asset, include it as an error. Don't post, resolve, or approve anything in Frame.io unless the user explicitly asks.
 6. Note the version shown (e.g., V2, V3) so the report says which version was reviewed.
 
 ## Video file (uploaded, or staged from the user's computer)
