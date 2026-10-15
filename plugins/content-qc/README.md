@@ -12,11 +12,11 @@ Share a Google Drive folder or file link, a Frame.io link, or upload a video or 
 
 Claude reviews every asset and checks:
 
-1. **Copy and grammar** in Spanish and English: accents, ¿¡, agreement, consistency across frames
+1. **Copy and grammar** in Spanish and English: accents, ¿¡, agreement, consistency across frames, album titles in italics and song titles in quotes
 2. **Amazon Music styling**: every album, artist, and track name must match exactly how it appears on Amazon Music (caps, symbols, punctuation)
 3. **Visual and brand**: Amazon Music logo, layout consistency, artwork matches the album, cropping, file naming
 
-You get a verdict, a list of fixes, and a frame-by-frame pass/flag table with Amazon Music sources.
+You get a short list of errors only (frame, what's wrong, the fix), or a one-line all-clear.
 
 ## Requirements
 
