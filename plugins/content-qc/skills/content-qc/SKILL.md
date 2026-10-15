@@ -22,7 +22,7 @@ Always start with the intake form, before any other tool call, unless the reques
    - Mixed (stills + video)
 3. **Which checks?** (header "Checks", multi-select)
    - All of the above (Recommended): "Copy, Amazon Music styling, visual/brand, plus video technical for video"
-   - Copy & grammar: "Spanish/English spelling, accents, punctuation, consistency"
+   - Copy & grammar: "Spanish/English spelling, accents, punctuation, album italics / song quotes"
    - Amazon Music styling: "Album, artist, and track names match Amazon Music exactly"
    - Visual & brand: "Logo, layout, artwork, cropping, file naming (and video technical for video)"
 4. **Anything else I should know?** (header "Context", single select)
@@ -59,26 +59,26 @@ For every asset, write down every piece of on-screen text exactly as shown: head
 
 Run the checks selected in the intake form (default: all). "All of the above" means every check, plus video technical for any video. Detailed rules are in the reference files; read them before checking.
 
-1. **Copy & grammar (Spanish and English).** See `references/copy-checklist.md`. Spelling, accents/tildes, ¿¡ marks, agreement, verb tense, punctuation, and consistency of repeated copy across frames.
+1. **Copy & grammar (Spanish and English).** See `references/copy-checklist.md`. Spelling, accents/tildes, ¿¡ marks, agreement, verb tense, punctuation, consistency of repeated copy across frames, and **music title formatting**: album titles in *italics*, song titles in "quotation marks" (see the checklist for where this does and doesn't apply).
 2. **Amazon Music name styling.** See `references/amazon-music-styling.md`. The team mirrors exactly how Amazon Music displays album, artist, and track names (caps, lowercase, symbols, punctuation, accents). Verify **every** album and **every** artist name against Amazon Music, including names that look obviously right. Artist styling is checked separately from album styling (e.g., Amazon lists "KAROL G" in all caps).
 3. **Visual & brand.** See `references/visual-brand-checklist.md`. Logo, layout consistency across frames, artwork matches the named album, text cropping/overlap, file naming.
 
 ## 4. Report back
 
-Reply in chat in this order:
+Call out errors only. Don't list, table, or confirm anything that passed.
 
-1. **One-line verdict**: "Clean, ready to send" or "X issues to fix before sending".
-2. **Fixes needed** (only if any): numbered list. For each one: frame, what's wrong, what it should be, and why (with the Amazon Music source when relevant). Most important first.
-3. **Frame-by-frame table**:
+**If there are errors**, reply with:
 
-| Frame | Album / title | Artist | Copy | Amazon styling | Visual | Status |
-|---|---|---|---|---|---|---|
+1. **One line**: "X issues to fix" plus what was reviewed (e.g., "3 issues to fix · 8 static frames from Drive, R02").
+2. **The errors**, numbered, most important first. One line each:
+   **Frame 03 (or 0:04–0:06 for video)**: what's wrong → what it should be. Add a short reason only when it isn't obvious (e.g., "Amazon Music lists the artist as KAROL G").
+   Group an error that repeats across frames into one item (e.g., "Frames 01–08: …").
+3. **Sources**: links only for the Amazon Music pages behind a styling fix.
 
-   For video, use timecodes (e.g., 0:03–0:05) in place of frame numbers, one row per super or scene with text. Open the report with the video specs (duration, aspect ratio, version reviewed) and say whether audio/VO was reviewed.
+**If there are no errors**, reply with one line: "No issues found · 8 static frames from Drive, R02. Ready to send."
 
-   Use ✅ for pass and ⚠️ for flag; keep notes short.
-4. **Shared copy**: if the same copy appears on every frame, list it once and confirm it.
-5. **Optional notes**: things that aren't errors but are worth a look (e.g., a judgment call on tone). Keep them clearly separate from fixes.
-6. **Sources**: markdown links to the Amazon Music pages used to verify names.
+Only add these when they apply, as one short line each under the errors:
+- **Couldn't verify:** anything you couldn't confirm (e.g., an album not on Amazon Music yet, italics not visible in pasted text, audio/VO not reviewed). Never treat these as passing.
+- **Re-check:** if the form asked for one, list the previous round's issues as Fixed / Still open, above the new errors.
 
-Keep it short. Don't restate passing items at length. If something couldn't be verified (e.g., an album not yet on Amazon Music), say so plainly and mark it ⚠️ "unverified" rather than passing it.
+No frame-by-frame tables, no lists of what passed, no "optional notes" or style suggestions that aren't errors.
