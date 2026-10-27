@@ -9,7 +9,7 @@ Review every frame/asset in the deliverable and return a clear pass/flag report.
 
 ## 0. Intake form
 
-Always start with the intake form, before any other tool call, unless the request already answers every question below. Show it with the AskUserQuestion tool, as one call with these four questions. Skip any question the request already answers, but never skip the whole form just because a link was included.
+Show the intake form only when the request has no link, file, or pasted copy. If the user already dropped a link or file, skip the form entirely and run the full QC with the defaults below. When you do show it, use the AskUserQuestion tool, as one call with these four questions.
 
 1. **What are we QCing?** (header "Asset", single select)
    - Drive folder or file: "Paste the link in the box below or in your next message"
@@ -31,12 +31,11 @@ Always start with the intake form, before any other tool call, unless the reques
    - Specific notes: "Type them in the box (e.g., client feedback to verify, focus areas)"
    - Re-check of a fixed round: "Type the previous round's issues so I confirm they're fixed"
 
-**If the form is skipped or left blank** (the user dismisses it, skips questions, or just drops a link), don't ask again. Use the defaults and start right away:
+**Defaults** (used when a link or file was dropped, or the form is skipped or left blank). Don't ask anything; start right away:
 - Asset: work it out from the link or file (drive.google.com → Drive, f.io / frame.io → Frame.io, an attachment → uploaded file, plain text → copy only).
 - Format: work it out from the files themselves (image types → static, video types → video, both → mixed).
 - Checks: all of the above, including video technical for any video.
 - Context: nothing extra. If the asset has VO or lyrics and no script was given, say in the report that audio wasn't reviewed. Don't stop to ask.
-Mention the defaults used in one line at the top of the report (e.g., "Ran full QC on 8 static frames from Drive").
 
 After the form:
 - If no link or file has been provided yet, ask in one short line: "Paste the link (or attach the file) and I'll start." Then wait.
@@ -65,20 +64,20 @@ Run the checks selected in the intake form (default: all). "All of the above" me
 
 ## 4. Report back
 
-Call out errors only. Don't list, table, or confirm anything that passed.
+Keep it short enough to read in 30 seconds. Errors only.
 
-**If there are errors**, reply with:
+**If there are errors:**
 
-1. **One line**: "X issues to fix" plus what was reviewed (e.g., "3 issues to fix · 8 static frames from Drive, R02").
-2. **The errors**, numbered, most important first. One line each:
-   **Frame 03 (or 0:04–0:06 for video)**: what's wrong → what it should be. Add a short reason only when it isn't obvious (e.g., "Amazon Music lists the artist as KAROL G").
-   Group an error that repeats across frames into one item (e.g., "Frames 01–08: …").
-3. **Sources**: links only for the Amazon Music pages behind a styling fix.
+**X issues to fix · [count] [format], [round]** (e.g., "4 issues to fix · 5 static frames, R01")
 
-**If there are no errors**, reply with one line: "No issues found · 8 static frames from Drive, R02. Ready to send."
+1. **Frame 03:** wrong → right
+2. **Frames 03–05:** wrong → right
 
-Only add these when they apply, as one short line each under the errors:
-- **Couldn't verify:** anything you couldn't confirm (e.g., an album not on Amazon Music yet, italics not visible in pasted text, audio/VO not reviewed). Never treat these as passing.
-- **Re-check:** if the form asked for one, list the previous round's issues as Fixed / Still open, above the new errors.
+Rules:
+- One line per issue, in the form "wrong → right". Group an error that repeats across frames into one line.
+- No explanations, unless the fix is a name change from Amazon Music (then add "per Amazon Music" and nothing more).
+- No sources list, no tables, no list of what passed, no tips or style suggestions. Check every name anyway.
+- Only if something couldn't be checked, add one final line: "Couldn't verify: …".
+- For a re-check, add one line above the issues: "Last round: 3 fixed, 1 still open (Frame 02)".
 
-No frame-by-frame tables, no lists of what passed, no "optional notes" or style suggestions that aren't errors.
+**If there are no errors**, reply with one line: "No issues · 5 static frames, R01. Ready to send."
