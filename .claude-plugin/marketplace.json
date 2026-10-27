@@ -11,7 +11,7 @@
       "name": "content-qc",
       "source": "./plugins/content-qc",
       "description": "QC creative deliverables (Drive, Frame.io, video, stills): Spanish/English copy, Amazon Music name styling, and visual/brand checks.",
-      "version": "0.5.0"
+      "version": "0.6.0"
     }
   ]
 }
