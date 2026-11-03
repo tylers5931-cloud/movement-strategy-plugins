@@ -28,4 +28,8 @@ Video: Claude checks everything on screen (supers, end card, safe zones, flash f
 
 ## Updating
 
-Add newly verified artist and album stylings to `skills/content-qc/references/amazon-music-styling.md`, and add team-specific rules to the checklists in that folder.
+All rules live in one file: `skills/content-qc/references/qc-checklist.md`. Add newly verified stylings to its Known stylings table and team rules to the matching section. Keep it short: every line is re-read on every step of a QC run.
+
+## Changelog
+
+- **0.7.0**: Merged the four reference files into one `qc-checklist.md` (about half the length). Added step-saving rules: load tools once, skip Chrome if it doesn't connect, batch browser actions, run Amazon searches in one pass, don't open the Amazon web player. Added `scripts/frameio_grid.js` for capturing Frame.io video in 6-frame grids. New checks: name typos letter by letter, stray spaces in file names.
