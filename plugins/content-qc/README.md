@@ -32,4 +32,5 @@ All rules live in one file: `skills/content-qc/references/qc-checklist.md`. Add 
 
 ## Changelog
 
+- **0.8.0**: Names that web search can't settle now get one Amazon Music web-player check (a single batched pass, stops at a sign-in page). Dropped the second search round.
 - **0.7.0**: Merged the four reference files into one `qc-checklist.md` (about half the length). Added step-saving rules: load tools once, skip Chrome if it doesn't connect, batch browser actions, run Amazon searches in one pass, don't open the Amazon web player. Added `scripts/frameio_grid.js` for capturing Frame.io video in 6-frame grids. New checks: name typos letter by letter, stray spaces in file names.
