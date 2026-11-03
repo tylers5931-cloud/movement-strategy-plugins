@@ -21,8 +21,8 @@ You get a short list of errors only (frame, what's wrong, the fix), or a one-lin
 ## Requirements
 
 - Google Drive connector (to read folders and files)
-- Claude in Chrome or the built-in browser, signed in to Frame.io (to view Drive images and Frame.io assets)
-- Web search (to verify names on Amazon Music)
+- Claude in Chrome or the built-in browser (Frame.io assets need a Frame.io sign-in; the Amazon Music check needs no sign-in, just amazon.com allowed once)
+- Web search (first pass on Amazon Music names)
 
 Video: Claude checks everything on screen (supers, end card, safe zones, flash frames). It can't hear audio, so share the VO script if voiceover or lyrics need QC.
 
@@ -32,5 +32,6 @@ All rules live in one file: `skills/content-qc/references/qc-checklist.md`. Add 
 
 ## Changelog
 
+- **0.9.0**: Every name is now checked against the Amazon Music platform with no sign-in: `scripts/amazon_lookup.js` reads the public amazon.com Digital Music search, then the album/track page (Amazon Music's own title and artist styling). Released titles can no longer land under "Couldn't verify". Drive images now download through the Drive connector instead of a signed-in browser. Added 7 known stylings.
 - **0.8.0**: Names that web search can't settle now get one Amazon Music web-player check (a single batched pass, stops at a sign-in page). Dropped the second search round.
 - **0.7.0**: Merged the four reference files into one `qc-checklist.md` (about half the length). Added step-saving rules: load tools once, skip Chrome if it doesn't connect, batch browser actions, run Amazon searches in one pass, don't open the Amazon web player. Added `scripts/frameio_grid.js` for capturing Frame.io video in 6-frame grids. New checks: name typos letter by letter, stray spaces in file names.
