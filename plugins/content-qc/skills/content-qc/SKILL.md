@@ -15,7 +15,7 @@ Every step re-reads the whole session, so fewer steps means a cheaper, faster ru
 2. **Load tools in one ToolSearch call** for the route. For Frame.io or Drive images, load the browser tools plus `WebSearch` together.
 3. **Pick the browser once.** If Claude in Chrome doesn't connect on the first call, switch to the built-in browser (`mcp__remote-devices__Claude_Browser__*`) without retrying or troubleshooting.
 4. **Batch browser work.** Use `browser_batch` for navigate → wait → screenshot/zoom → get_page_text. For Frame.io video, use `scripts/frameio_grid.js` (one batch per 6 frames).
-5. **Run all Amazon Music searches in one parallel turn.** If search doesn't settle a name, list it under Couldn't verify. Don't open the Amazon web player.
+5. **Run all Amazon Music searches in one parallel turn** (standard mode only, no second search round). For names search doesn't settle, do **one** web-player check in a single `browser_batch` (see checklist). Anything still unsettled goes under Couldn't verify.
 6. **Clean up in one turn:** close extra tabs, remove the overlay, and reset the viewport.
 
 ## 0. Intake form
