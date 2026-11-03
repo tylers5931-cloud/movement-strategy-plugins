@@ -5,79 +5,60 @@ description: Opens a QC intake form, then QCs a piece of creative content (Googl
 
 # Content QC
 
-Review every frame/asset in the deliverable and return a clear pass/flag report. Be exhaustive: read every word on every asset. Never mark something correct without checking it.
+Review every asset and return an errors-only report. Read every word on every asset, and never pass something unchecked.
+
+## Keep steps low
+
+Every step re-reads the whole session, so fewer steps means a cheaper, faster run.
+
+1. **Read `references/qc-checklist.md` once.** It has the intake routes and every check. Don't open other files.
+2. **Load tools in one ToolSearch call** for the route. For Frame.io or Drive images, load the browser tools plus `WebSearch` together.
+3. **Pick the browser once.** If Claude in Chrome doesn't connect on the first call, switch to the built-in browser (`mcp__remote-devices__Claude_Browser__*`) without retrying or troubleshooting.
+4. **Batch browser work.** Use `browser_batch` for navigate → wait → screenshot/zoom → get_page_text. For Frame.io video, use `scripts/frameio_grid.js` (one batch per 6 frames).
+5. **Run all Amazon Music searches in one parallel turn.** If search doesn't settle a name, list it under Couldn't verify. Don't open the Amazon web player.
+6. **Clean up in one turn:** close extra tabs, remove the overlay, and reset the viewport.
 
 ## 0. Intake form
 
-Show the intake form only when the request has no link, file, or pasted copy. If the user already dropped a link or file, skip the form entirely and run the full QC with the defaults below. When you do show it, use the AskUserQuestion tool, as one call with these four questions.
+Show it only when the request has no link, file, or pasted copy. Otherwise skip it and run everything with the defaults. When shown, make one AskUserQuestion call with:
 
-1. **What are we QCing?** (header "Asset", single select)
-   - Drive folder or file: "Paste the link in the box below or in your next message"
-   - Frame.io link: "Review link or single asset"
-   - Uploaded file: "A video or still attached to this chat"
-   - Copy only: "Pasted text, no visuals"
-2. **What's the format?** (header "Format", single select)
-   - Static frames / carousel
-   - Video
-   - Mixed (stills + video)
-3. **Which checks?** (header "Checks", multi-select)
-   - All of the above (Recommended): "Copy, Amazon Music styling, visual/brand, plus video technical for video"
-   - Copy & grammar: "Spanish/English spelling, accents, punctuation, album italics / song quotes"
-   - Amazon Music styling: "Album, artist, and track names match Amazon Music exactly"
-   - Visual & brand: "Logo, layout, artwork, cropping, file naming (and video technical for video)"
-4. **Anything else I should know?** (header "Context", single select)
-   - Nothing extra
-   - VO script / lyrics attached: "I'll check captions and VO copy against it"
-   - Specific notes: "Type them in the box (e.g., client feedback to verify, focus areas)"
-   - Re-check of a fixed round: "Type the previous round's issues so I confirm they're fixed"
+1. **What are we QCing?** (header "Asset"): Drive folder or file / Frame.io link / Uploaded file / Copy only
+2. **What's the format?** (header "Format"): Static frames / carousel · Video · Mixed
+3. **Which checks?** (header "Checks", multi-select): All of the above (Recommended) · Copy & grammar · Amazon Music styling · Visual & brand
+4. **Anything else I should know?** (header "Context"): Nothing extra · VO script / lyrics attached · Specific notes · Re-check of a fixed round
 
-**Defaults** (used when a link or file was dropped, or the form is skipped or left blank). Don't ask anything; start right away:
-- Asset: work it out from the link or file (drive.google.com → Drive, f.io / frame.io → Frame.io, an attachment → uploaded file, plain text → copy only).
-- Format: work it out from the files themselves (image types → static, video types → video, both → mixed).
-- Checks: all of the above, including video technical for any video.
-- Context: nothing extra. If the asset has VO or lyrics and no script was given, say in the report that audio wasn't reviewed. Don't stop to ask.
+**Defaults:** work out the asset and format from the link or files, run all checks (plus video technical for video), and assume no extra context. Don't ask anything.
 
 After the form:
-- If no link or file has been provided yet, ask in one short line: "Paste the link (or attach the file) and I'll start." Then wait.
-- Run only the checks selected. If "Re-check" was chosen, verify each listed issue first and report them at the top as Fixed / Still open.
-- If "VO script / lyrics" was chosen but no script is in the chat, ask for it before reporting.
 
-## 1. Collect the assets
+- If there's no link yet, reply "Paste the link (or attach the file) and I'll start."
+- For a re-check, verify the listed issues first.
+- If VO / lyrics was chosen without a script, ask for it.
 
-Accept any of: a Google Drive folder or file link, a Frame.io link (review link or single asset), a video or still uploaded to chat, or pasted copy.
+## 1. Collect
 
-Read `references/asset-intake.md` and follow the route for the input type. It covers Drive folders (with pagination), Drive images, Frame.io stills and video (driving the player from the browser), video files (frame extraction with the bundled script), and uploads.
+Follow the matching route in the checklist. Confirm the asset list and count; for video, confirm the duration and that every cut, super and the end card was captured. Note the round or version.
 
-Before checking anything, confirm the full asset list and count. For video, confirm the duration and that every cut, super, and the end card has been captured.
+## 2. Transcribe
 
-## 2. Transcribe the copy
+Write down all on-screen text exactly as shown: headlines, body, titles, artists, tracks, CTAs, legal. Every check runs against this transcription.
 
-For every asset, write down every piece of on-screen text exactly as shown: headlines, body copy, album titles, artist names, track names, CTAs, legal text. Keep capitalization, accents, and punctuation exactly as they appear. This transcription is what all later checks run against.
+## 3. Check
 
-## 3. Run the checks
+Run the selected sections of the checklist: copy & grammar, Amazon Music styling, visual & brand (with video technical for video).
 
-Run the checks selected in the intake form (default: all). "All of the above" means every check, plus video technical for any video. Detailed rules are in the reference files; read them before checking.
+## 4. Report
 
-1. **Copy & grammar (Spanish and English).** See `references/copy-checklist.md`. Spelling, accents/tildes, ¿¡ marks, agreement, verb tense, punctuation, consistency of repeated copy across frames, and **music title formatting**: album titles in *italics*, song titles in "quotation marks" (see the checklist for where this does and doesn't apply).
-2. **Amazon Music name styling.** See `references/amazon-music-styling.md`. The team mirrors exactly how Amazon Music displays album, artist, and track names (caps, lowercase, symbols, punctuation, accents). Verify **every** album and **every** artist name against Amazon Music, including names that look obviously right. Artist styling is checked separately from album styling (e.g., Amazon lists "KAROL G" in all caps).
-3. **Visual & brand.** See `references/visual-brand-checklist.md`. Logo, layout consistency across frames, artwork matches the named album, text cropping/overlap, file naming.
+Readable in 30 seconds, errors only.
 
-## 4. Report back
-
-Keep it short enough to read in 30 seconds. Errors only.
-
-**If there are errors:**
-
-**X issues to fix · [count] [format], [round]** (e.g., "4 issues to fix · 5 static frames, R01")
+**X issues to fix · [count] [format], [round]**
 
 1. **Frame 03:** wrong → right
 2. **Frames 03–05:** wrong → right
 
-Rules:
-- One line per issue, in the form "wrong → right". Group an error that repeats across frames into one line.
-- No explanations, unless the fix is a name change from Amazon Music (then add "per Amazon Music" and nothing more).
-- No sources list, no tables, no list of what passed, no tips or style suggestions. Check every name anyway.
-- Only if something couldn't be checked, add one final line: "Couldn't verify: …".
-- For a re-check, add one line above the issues: "Last round: 3 fixed, 1 still open (Frame 02)".
-
-**If there are no errors**, reply with one line: "No issues · 5 static frames, R01. Ready to send."
+- One line per issue, as "wrong → right". Group repeats across frames.
+- No explanations, except adding "per Amazon Music" to a name fix.
+- No tables, no list of what passed, no tips.
+- Only if needed, end with one line: "Couldn't verify: …".
+- For a re-check, put "Last round: N fixed, N still open (Frame XX)" above the issues.
+- With no errors, reply with one line: "No issues · 5 static frames, R01. Ready to send."
