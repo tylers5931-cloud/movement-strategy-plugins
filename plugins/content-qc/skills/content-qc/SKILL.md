@@ -12,10 +12,10 @@ Review every asset and return an errors-only report. Read every word on every as
 Every step re-reads the whole session, so fewer steps means a cheaper, faster run.
 
 1. **Read `references/qc-checklist.md` once.** It has the intake routes and every check. Don't open other files.
-2. **Load tools in one ToolSearch call** for the route. For Frame.io or Drive images, load the browser tools plus `WebSearch` together.
+2. **Load tools in one ToolSearch call** for the route: the Drive tools, the browser tools (needed for the Amazon check on every run) and `WebSearch` together.
 3. **Pick the browser once.** If Claude in Chrome doesn't connect on the first call, switch to the built-in browser (`mcp__remote-devices__Claude_Browser__*`) without retrying or troubleshooting.
 4. **Batch browser work.** Use `browser_batch` for navigate → wait → screenshot/zoom → get_page_text. For Frame.io video, use `scripts/frameio_grid.js` (one batch per 6 frames).
-5. **Run all Amazon Music searches in one parallel turn** (standard mode only, no second search round). For names search doesn't settle, do **one** web-player check in a single `browser_batch` (see checklist). Anything still unsettled goes under Couldn't verify.
+5. **Check every name against the Amazon Music platform.** Run all WebSearches in one parallel turn (standard mode). For every name search doesn't settle, run `scripts/amazon_lookup.js` in two batches: amazon.com Digital Music search, then the matching detail pages (see checklist). No sign-in is needed, so never skip this or report a released title as "Couldn't verify".
 6. **Clean up in one turn:** close extra tabs, remove the overlay, and reset the viewport.
 
 ## 0. Intake form
