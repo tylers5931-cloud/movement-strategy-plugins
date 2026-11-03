@@ -28,7 +28,9 @@ Read this file once per run. It covers intake routes and every check.
 Match Amazon's display exactly: caps, lowercase, symbols, punctuation, accents, spacing. Check artist styling separately. Ignore [Explicit]/[Clean]; flag edition tags only if the creative clearly means a different edition.
 
 - **Run all searches in one parallel batch:** WebSearch `<artist> <title> amazon music` with allowed_domains music.amazon.com and amazon.com. The best evidence is a result titled "<Track> song by <ARTIST> from <ALBUM> on Amazon Music", or "<ARTIST> on Amazon Music Unlimited" for artists.
-- If search doesn't settle it, list the item under Couldn't verify. **Don't open the Amazon web player** (it often won't load and costs steps).
+- Don't run a second search round. For names search doesn't settle, do **one web-player check**: a single `browser_batch` with, per name, navigate `https://music.amazon.com/search/<artist> <title>` → wait 3s → `get_page_text`. Match the track row's title and artist exactly.
+  - If it shows a sign-in page or doesn't load, stop and list the names under Couldn't verify (add "sign in to Amazon Music in the browser"). Never enter credentials or retry.
+  - Anything still unclear after this one pass goes under Couldn't verify.
 - If something is unreleased, fall back to the label announcement and mark it "unverified on Amazon".
 
 **Known stylings** (re-verify; add confirmed ones after each run):
